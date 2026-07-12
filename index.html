@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Santiago Orrego — Desarrollo de software</title>
+    <meta name="description" content="Portafolio de Santiago Orrego Castaño, estudiante de desarrollo de software en el ITM, Medellín." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f1411'/%3E%3Ccircle cx='16' cy='18' r='5' fill='%23ffb35c'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="nav" id="nav">
+      <a class="nav__brand" href="#top">santiago<span class="nav__cursor">_</span></a>
+      <nav class="nav__links" aria-label="Secciones">
+        <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>
+        <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
+        <a href="#stack" data-i18n="nav.stack">Stack</a>
+        <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+      </nav>
+      <div class="nav__lang" role="group" aria-label="Idioma">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============ HERO ============ -->
+      <section class="hero">
+        <canvas class="hero__valley" id="valley" aria-hidden="true"></canvas>
+        <div class="hero__inner">
+          <div class="hero__text">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Medellín, Colombia</p>
+            <h1 class="hero__title">Santiago<br /><span class="hero__apellido">Orrego Castaño</span></h1>
+            <p class="hero__role" data-i18n="hero.role">Estudiante de desarrollo de software · ITM</p>
+            <p class="hero__sub" data-i18n="hero.intro">
+              Este es mi portafolio. Aquí reúno los proyectos que construyo mientras me formo
+              como desarrollador en el Instituto Tecnológico Metropolitano.
+            </p>
+            <div class="hero__actions">
+              <a class="btn" href="#proyectos" data-i18n="hero.cta">Ver proyectos</a>
+              <a class="btn btn--ghost" href="mailto:orregosantiago72@gmail.com" data-i18n="hero.cta2">Escríbeme</a>
+            </div>
+          </div>
+
+          <div class="hero__avatar" aria-hidden="true">
+            <div id="hero-lottie"></div>
+          </div>
+        </div>
+        <p class="hero__scroll" aria-hidden="true" data-i18n="hero.scroll">desliza</p>
+      </section>
+
+      <!-- ============ SOBRE MÍ ============ -->
+      <section class="section" id="sobre-mi">
+        <p class="eyebrow" data-reveal data-i18n="about.eyebrow">~/sobre-mí</p>
+        <h2 class="section__title" data-reveal data-i18n="about.title">Sobre mí</h2>
+        <p class="about__text" data-reveal data-i18n="about.p">
+          Soy Santiago Orrego Castaño, estudiante de desarrollo de software en Medellín. Me gusta
+          construir aplicaciones de principio a fin: entender el problema, escribir el código y
+          verlo funcionando. Este espacio crece con cada proyecto que termino.
+        </p>
+      </section>
+
+      <!-- ============ PROYECTOS (editable) ============ -->
+      <section class="section" id="proyectos">
+        <p class="eyebrow" data-reveal data-i18n="sec.projects.eyebrow">~/proyectos</p>
+        <h2 class="section__title" data-reveal data-i18n="sec.projects.title">Proyectos</h2>
+
+        <div class="proyectos__admin" id="proyectos-admin" hidden>
+          <span class="proyectos__modo" data-i18n="admin.modo">Modo edición activo</span>
+          <div>
+            <button class="btn btn--ghost" id="btn-exportar" type="button" data-i18n="admin.exportar">Exportar</button>
+            <button class="btn" id="btn-agregar" type="button" data-i18n="admin.agregar">＋ Agregar proyecto</button>
+          </div>
+        </div>
+
+        <div class="proyectos__lista" id="proyectos-lista"></div>
+      </section>
+
+      <!-- ============ STACK ============ -->
+      <section class="section" id="stack">
+        <p class="eyebrow" data-reveal data-i18n="sec.stack.eyebrow">~/stack</p>
+        <h2 class="section__title" data-reveal data-i18n="sec.stack.title">Con qué construyo</h2>
+        <div class="stack">
+          <div class="stack__col" data-reveal>
+            <h3>Frontend</h3>
+            <ul>
+              <li>HTML · CSS</li>
+              <li>JavaScript / TypeScript</li>
+              <li>React</li>
+            </ul>
+          </div>
+          <div class="stack__col" data-reveal>
+            <h3 data-i18n="stack.col2">Backend y datos</h3>
+            <ul>
+              <li>Java</li>
+              <li>Node.js</li>
+              <li>SQL</li>
+            </ul>
+          </div>
+          <div class="stack__col" data-reveal>
+            <h3 data-i18n="stack.col3">Herramientas</h3>
+            <ul>
+              <li>Git · GitHub</li>
+              <li>VS Code</li>
+              <li>Vite</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACTO ============ -->
+      <section class="section section--contact" id="contacto">
+        <p class="eyebrow" data-reveal data-i18n="sec.contact.eyebrow">~/contacto</p>
+        <h2 class="section__title" data-reveal data-i18n="sec.contact.title">Hablemos</h2>
+        <p class="contact__desc" data-reveal data-i18n="contact.desc">
+          ¿Tienes una idea, una pregunta o una oportunidad? Escríbeme y te respondo pronto.
+        </p>
+        <a class="btn btn--big" href="mailto:orregosantiago72@gmail.com" data-reveal>orregosantiago72@gmail.com</a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p data-i18n="footer.made">Hecho en Medellín · © 2026 Santiago Orrego</p>
+      <p class="footer__credit">
+        <span data-i18n="footer.credit">Diseño inspirado en el trabajo de</span>
+        <a href="https://david-hckh.com" target="_blank" rel="noopener">David Huculak</a>
+      </p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
