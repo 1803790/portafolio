@@ -30,6 +30,8 @@ export function initValley(canvas: HTMLCanvasElement): void {
   let h = 0;
   let lights: Light[] = [];
   let raf = 0;
+  let lastW = -1;
+  let lastH = -1;
   const mouse = { x: -9999, y: -9999 };
 
   // Borde superior de la franja de luces: campana centrada (laderas en los bordes).
@@ -63,7 +65,25 @@ export function initValley(canvas: HTMLCanvasElement): void {
     }
   }
 
+  // Ajusta el buffer al tamaño real del canvas; re-siembra si cambió. Se llama en
+  // cada fotograma, así se auto-corrige aunque el layout no esté listo al iniciar.
+  function ensureSize(): boolean {
+    const cw = canvas.clientWidth;
+    const ch = canvas.clientHeight;
+    if (cw === lastW && ch === lastH) return false;
+    lastW = cw;
+    lastH = ch;
+    w = cw;
+    h = ch;
+    canvas.width = Math.max(1, Math.floor(cw * dpr));
+    canvas.height = Math.max(1, Math.floor(ch * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+    return true;
+  }
+
   function frame(time: number): void {
+    ensureSize();
     ctx.clearRect(0, 0, w, h);
 
     for (const l of lights) {
@@ -89,7 +109,7 @@ export function initValley(canvas: HTMLCanvasElement): void {
       l.x += l.vx;
       l.y += l.vy;
 
-      const twinkle = reduced ? 1 : 0.7 + 0.3 * Math.sin(l.phase + time * 0.001 * l.speed);
+      const twinkle = 0.7 + 0.3 * Math.sin(l.phase + time * 0.001 * l.speed);
       const radio = l.r * (1 + boost * 1.8);
       const alpha = Math.min(1, l.base * twinkle + boost * 0.7);
 
@@ -114,6 +134,7 @@ export function initValley(canvas: HTMLCanvasElement): void {
   }
 
   function drawStatic(): void {
+    ensureSize();
     ctx.clearRect(0, 0, w, h);
     for (const l of lights) {
       ctx.globalAlpha = l.base;
@@ -125,20 +146,15 @@ export function initValley(canvas: HTMLCanvasElement): void {
     ctx.globalAlpha = 1;
   }
 
-  function resize(): void {
-    w = canvas.clientWidth;
-    h = canvas.clientHeight;
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    seed();
-    if (reduced) drawStatic();
+  ensureSize();
+
+  if (reduced) {
+    drawStatic();
+    window.addEventListener('resize', drawStatic);
+    window.addEventListener('load', drawStatic);
+    requestAnimationFrame(drawStatic); // re-mide tras el primer layout
+    return;
   }
-
-  resize();
-  window.addEventListener('resize', resize);
-
-  if (reduced) return;
 
   // el cursor se mide en coordenadas del canvas
   window.addEventListener('pointermove', (e) => {
